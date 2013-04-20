@@ -8,15 +8,17 @@ module AcBoletos
     s
   end
 
-  def render_boleto(params_or_obj)
-    # TODO
-    # efetua validação
+  def AcBoletos.boleto(params_or_obj)
     if params_or_obj.is_a?(Hash)
       modelo = params_or_obj[:modelo]
     else
       modelo = params_or_obj.modelo
     end
-    @boleto = ("AcBoletos::"+modelo).constantize.new params_or_obj
+    ("AcBoletos::"+modelo).constantize.new params_or_obj
+  end
+
+  def render_boleto(params_or_obj)
+    @boleto = AcBoletos.boleto(params_or_obj)
     render "boletos/show"
   end
 
