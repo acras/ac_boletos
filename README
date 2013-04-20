@@ -1,0 +1,27 @@
+AcBoletos
+=========
+
+AcBoletos é uma gem para emissão de boletos. Para poder utilizar execute:
+
+script/generate boletos_migration add_boletos
+
+rake db:migrate
+
+Depois crie um controller para exibir os boletos criados (TODO: criar um generator para isso):
+
+app/controllers/boletos_controller.rb:
+
+class BoletosController < ApplicationController
+  include BoletosHelper
+
+  def show
+    @boleto = Boleto.find_by_numero(params[:numero])
+    if !@boleto || (@boleto.access_key != params[:access_key])
+      redirect_to '/'
+    end
+    render :inline => boleto_html(@boleto)
+  end
+end
+
+
+A rota boletos/show/:numero/:access_key é fornecida por este plugin.

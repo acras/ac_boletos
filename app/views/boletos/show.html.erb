@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Boleto</title>
+    <style type="text/css">a:link, a:vlink { text-decoration: none; }</style>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <table width="640" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td width="242"></td>
+          <td width="428" align="right"></td>
+        </tr>
+        <tr>
+          <td width="225" align="bottom">
+            <%= image_tag @boleto.caminho_logo %><font size="5">&nbsp;&nbsp;|<%= @boleto.codigo_banco_formatado %>|</font>
+          </td>
+          <td align="right" valign="bottom">
+            <font face="arial, helvetica" size="-2"><b>Recibo do Sacado</b></font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="640" border="1" cellspacing="0" cellpadding="1">
+      <tbody>
+        <tr>
+          <td>
+            <font face="Arial, Helvetica" size="1">Cedente</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.nome_cedente %></font>
+          </td>
+          <td>
+            <font face="Arial, Helvetica" size="1">Agência / Código Cedente</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.agencia_codigo_cedente %></font>
+          </td>
+          <td>
+            <font face="Arial, Helvetica" size="1">Data Emissão</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.data_emissao.strftime('%d/%m/%Y') %></font>
+          </td>
+          <td>
+            <font face="Arial, Helvetica" size="1">Vencimento</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.data_vencimento.strftime('%d/%m/%Y') %></font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <font face="Arial, Helvetica" size="1">Sacado</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.nome_sacado %></font>
+          </td>
+          <td>
+            <font face="Arial, Helvetica" size="1">Nosso Número</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.nosso_numero_formatado.to_s %></font>
+          </td>
+          <td>
+            <font face="Arial, Helvetica" size="1">Número da Guia</font><br />
+            <font face="Arial, Helvetica" size="1">&nbsp;<%= @boleto.numero_guia %></font>
+          </td>
+          <td align="right">
+            <font face="Arial, Helvetica" size="1">Valor do Documento</font><br />
+            <font face="Arial, Helvetica" size="-1">&nbsp;<%= number_to_currency(@boleto.valor)%></font>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <p>
+              <font face="Arial, Helvetica" size="1">Demonstrativo</font>
+              <br />
+              <font face="Arial, Helvetica"><%= @boleto.descricao %></font>
+            </p>
+          <%- if @boleto.dado_adicional_1 -%>
+            <font face="Arial, Helvetica" size="2"><%= @boleto.dado_adicional_1 %></font><br />
+          <%- end -%>
+          <%- if @boleto.dado_adicional_2 -%>
+            <font face="Arial, Helvetica" size="2"><%= @boleto.dado_adicional_2 %></font><br />
+          <%- end -%>
+          <%- if @boleto.dado_adicional_3 -%>
+            <font face="Arial, Helvetica" size="2"><%= @boleto.dado_adicional_3 %></font><br />
+          <%- end -%>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="640" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td align="right">
+            <font face="Arial, Helvetica" size="2">Autenticação Mecânica</font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td colspan="2" width="640">
+            <br/>
+            <font face="Arial, Helvetica" size="-2">Corte aqui</font>
+            <hr size="1">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="640" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td valign="bottom" width="225">
+            <%= image_tag @boleto.caminho_logo %><font size="5">&nbsp;&nbsp;|<%= @boleto.codigo_banco_formatado %>|</font>
+          </td>
+          <td valign="bottom" align="right">
+            <%= @boleto.linha_digitavel %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table width="640" cellspacing="0" cellpadding="1" border="1">
+      <tbody>
+        <tr>
+          <td colspan="5" width="500">
+            <font face="Arial, Helvetica" size="1">Local de Pagamento</font><br />
+            <font face="Arial, Helvetica" size="1"><b>Pagável em qualquer banco até o vencimento</b></font><br />
+          </td>
+          <td align="right" width="170">
+            <font face="Arial, Helvetica" size="1">Vencimento</font><br />
+            <font face="Arial, Helvetica" size="-1"><b><%= @boleto.data_vencimento.strftime('%d/%m/%Y') %></b></font><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" width="500">
+            <font face="Arial, Helvetica" size="1">Cedente</font><br />
+            <font face="Arial, Helvetica" size="-1">
+              <%= @boleto.nome_cedente %>
+              &nbsp;&nbsp;&nbsp;
+              CNPJ <%= @boleto.cnpj_cedente_formatado %>
+            </font>
+            <br />
+          </td>
+          <td align="right" width="170">
+            <font face="Arial, Helvetica" size="1">Agência / Código Cedente</font><br />
+            <font face="Arial, Helvetica" size="-1"><%= @boleto.agencia_codigo_cedente %></font><br />
+          </td>
+        </tr>
+        <tr>
+          <td><font face="Arial, Helvetica" size="1">Data Documento</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.data_emissao.strftime('%d/%m/%Y') %></font></td>
+          <td><font face="Arial, Helvetica" size="1">Numero Documento</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.numero_documento %></font></td>
+          <td><font face="Arial, Helvetica" size="1">Especie Documento</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.especie_documento %>&nbsp;</font></td>
+          <td><font face="Arial, Helvetica" size="1">Aceite</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.aceite %></font></td>
+          <td><font face="Arial, Helvetica" size="1">Data Processamento</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.data_processamento.strftime('%d/%m/%Y') %></font></td>
+          <td width="170" align="right"><font face="Arial, Helvetica" size="1">Nosso Número</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.nosso_numero_formatado %></font></td>
+        </tr>
+        <tr>
+          <td><font face="Arial, Helvetica" size="1">Uso Banco</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
+          <td><font face="Arial, Helvetica" size="1">Carteira</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.carteira %></font></td>
+          <td><font face="Arial, Helvetica" size="1">Especie</font><br /><font face="Arial, Helvetica" size="-1">R$</font></td>
+          <td><font face="Arial, Helvetica" size="1">Quantidade</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
+          <td><font face="Arial, Helvetica" size="1">Valor</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
+          <td width="170" align="right"><font face="Arial, Helvetica" size="1">(=) Valor do Documento</font><br /><font face="Arial, Helvetica"><b><%= number_to_currency(@boleto.valor) %></b></font></td>
+        </tr>
+        <tr>
+          <th colspan="5" rowspan="5" valign='top'><p align="left">
+            <font face="Arial, Helvetica" size="1">Instruções (Texto de responsabilidade do cedente):</font><br />
+            <font face="Arial, Helvetica" size="-1">
+              <%= @boleto.instrucoes_1 -%><br />
+              <%= @boleto.instrucoes_2 -%><br />
+              <%= @boleto.instrucoes_3 -%>
+            </font>
+          </th>
+          <td width="170"><font face="Arial, Helvetica" size="1">(-) Descontos/Abatimento</font></br></br></td>
+        </tr>
+        <tr>
+          <td width="170"><font face="Arial, Helvetica" size="1">(-) Outras Deduções</font></br></br></td>
+        </tr>
+        <tr>
+          <td width="170"><font face="Arial, Helvetica" size="1">(+) Mora/Multa</font></br></br></td>
+        </tr>
+        <tr>
+          <td width="170"><font face="Arial, Helvetica" size="1">(+) Outros Acréscimos</font></br></br></td>
+        </tr>
+        <tr>
+          <td width="170"><font face="Arial, Helvetica" size="1">(=) Valor Cobrado</font><br/></br></td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <font face="Arial, Helvetica" size="1">Sacado: </font>
+            <font face="Arial, Helvetica" size="-1">
+              <%= @boleto.nome_sacado %> &nbsp;&nbsp; CNPJ/CPF <%= @boleto.cpf_cnpj_sacado %> <br />
+            </font>
+            <font face="Arial, Helvetica" size="1">Endereço: </font>
+            <font face="Arial, Helvetica" size="-1">
+              <%= @boleto.endereco_sacado_linha_1 %> &nbsp;&nbsp; <%= @boleto.endereco_sacado_linha_2 %><br />
+            </font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table width="640" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td colspan="5">
+            <br />
+            <%= barcode_i25_with_images(@boleto.codigo_barras) %>
+          </td>
+          <td align="right">
+            <font face="Arial, Helvetica" size="1" align="top">Ficha de Compensação / Autenticação Mecânica</font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr>
+          <td width="640" colspan="2">
+            <hr size="1">
+            <font size="-2">Corte Aqui</font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
