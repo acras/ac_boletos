@@ -1,7 +1,7 @@
 # encoding: utf-8
 Gem::Specification.new do |s|
   s.name = %q{ac_boletos}
-  s.version = "0.3.2"
+  s.version = "0.3.3"
   s.date = %q{2011-10-16}
   s.authors = ["Ricardo Acras", "Egon Hilgenstieler"]
   s.email = %q{ricardo@acras.com.br egon@acras.com.br}

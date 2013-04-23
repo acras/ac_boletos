@@ -1,4 +1,12 @@
 # encoding: utf-8
+#
+require "#{File.dirname(__FILE__)}/../app/helpers/barcode_helper.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto_caixa.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto_real.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto_itau.rb"
+
+ActionView::Base.send :include, BarcodeHelper
 
 module AcBoletos
 
