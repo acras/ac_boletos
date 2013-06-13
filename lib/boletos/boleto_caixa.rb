@@ -33,14 +33,7 @@ module AcBoletos
     end
 
     def get_campo_livre
-      campo_livre = codigo_cedente.to_s + #20-25 Código do Cedente
-      calc_digito_verificador_cod_cedente.to_s + #26-26 Dígito Verificador do Código do Cedente
-      nosso_numero[2..4] + #27–29 Nosso Número – Seqüência 1 (vide Nota 2) - posição 3 a 5 do nosso número
-      nosso_numero[0..0] + #30–30 Constante 1 (vide Nota 2) - primeira posição do nosso número
-      nosso_numero[5..7] + #31–33 Nosso Número – Seqüência 2 (vide Nota 2) - posição 6 a 8 do nosso número
-      nosso_numero[1..1] + #34–34 Constante 2 (vide Nota 2) - segunda posição do nosso número
-      nosso_numero[8..16] #35–43 Nosso Número – Seqüência 3 (vide Nota 2) - posição 9 a 17 do nosso número
-      campo_livre = campo_livre + calc_digito_verificador_campo_livre(campo_livre).to_s #44–44 Dígito Verificador do Campo Livre
+      nosso_numero + sprintf("%015d", codigo_cedente)
     end
 
     def get_codigo_cedente_formatted
@@ -52,7 +45,13 @@ module AcBoletos
     end
 
     def nosso_numero
-      '24' + "%015d" % numero
+      if @carteira == '11'
+        "%010d" % numero
+      elsif @carteira == '12'
+        "9%09d" % numero
+      elsif @carteira == '14'
+        "82%08d" % numero
+      end
     end
 
     def nosso_numero_formatado
@@ -60,7 +59,13 @@ module AcBoletos
     end
 
     def carteira
-      'SR'
+      case @carteira
+      when '11' then 'CS'
+      when '12' then 'CR'
+      when '14' then 'SR'
+      when '41' then 'DE'
+      else ""
+      end
     end
 
     def codigo_banco_formatado
