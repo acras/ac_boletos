@@ -63,6 +63,10 @@ module AcBoletos
       cnpj_formatado(cnpj_cedente)
     end
 
+    def local_pagamento
+      ['Pagável em qualquer banco até o vencimento']
+    end
+
     private
 
     def cnpj_formatado(val)

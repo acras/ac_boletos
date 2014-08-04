@@ -6,6 +6,10 @@ module AcBoletos
 
   class BoletoItau < Boleto
 
+    def local_pagamento
+      ['Até o vencimento, preferencialmente no Itaú', 'Após o vencimento, somente no Itaú']
+    end
+
     def linha_digitavel
       dv1 = dv2 = dv3 = '?'
       c = codigo_barras.to_s
