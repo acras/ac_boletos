@@ -57,7 +57,7 @@ module AcBoletos
     end
 
     def caminho_logo
-      'ac_boletos/logo_real.jpg'
+      'logo_real.jpg'
     end
 
     def codigo_banco_formatado

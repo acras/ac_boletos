@@ -73,7 +73,7 @@ module AcBoletos
     end
     
     def caminho_logo
-      'ac_boletos/logo_caixa.jpg'
+      'logo_caixa.jpg'
     end  
 
     private

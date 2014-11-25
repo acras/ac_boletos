@@ -5,10 +5,17 @@ require "#{File.dirname(__FILE__)}/boletos/boleto.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_caixa.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_real.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_itau.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto_santander.rb"
+require 'ac_boletos/version'
 
 ActionView::Base.send :include, BarcodeHelper
 
 module AcBoletos
+
+  module Rails
+    class Engine < ::Rails::Engine
+    end
+  end
 
   def AcBoletos.generate_access_key(size=16)
     s = ""

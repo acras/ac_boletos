@@ -17,7 +17,7 @@
             <%= image_tag @boleto.caminho_logo %><font size="5">&nbsp;&nbsp;|<%= @boleto.codigo_banco_formatado %>|</font>
           </td>
           <td align="right" valign="bottom">
-            <font face="arial, helvetica" size="-2"><b>Recibo do Sacado</b></font>
+            <font face="arial, helvetica" size="-2"><b>Recibo do Pagador</b></font>
           </td>
         </tr>
       </tbody>
@@ -26,11 +26,11 @@
       <tbody>
         <tr>
           <td>
-            <font face="Arial, Helvetica" size="1">Cedente</font><br />
+            <font face="Arial, Helvetica" size="1">Beneficiário</font><br />
             <font face="Arial, Helvetica" size="-1"><%= @boleto.nome_cedente %></font>
           </td>
           <td>
-            <font face="Arial, Helvetica" size="1">Agência / Código Cedente</font><br />
+            <font face="Arial, Helvetica" size="1">Agência / Código Beneficiário</font><br />
             <font face="Arial, Helvetica" size="-1"><%= @boleto.agencia_codigo_cedente %></font>
           </td>
           <td>
@@ -44,7 +44,7 @@
         </tr>
         <tr>
           <td>
-            <font face="Arial, Helvetica" size="1">Sacado</font><br />
+            <font face="Arial, Helvetica" size="1">Pagador</font><br />
             <font face="Arial, Helvetica" size="-1"><%= @boleto.nome_sacado %></font>
           </td>
           <td>
@@ -118,7 +118,7 @@
         <tr>
           <td colspan="5" width="500">
             <font face="Arial, Helvetica" size="1">Local de Pagamento</font><br />
-            <font face="Arial, Helvetica" size="1"><b>Pagável em qualquer banco até o vencimento</b></font><br />
+            <font face="Arial, Helvetica" size="1"><b><%= @boleto.local_pagamento.join('<br/>').html_safe %></b></font><br />
           </td>
           <td align="right" width="170">
             <font face="Arial, Helvetica" size="1">Vencimento</font><br />
@@ -127,7 +127,7 @@
         </tr>
         <tr>
           <td colspan="5" width="500">
-            <font face="Arial, Helvetica" size="1">Cedente</font><br />
+            <font face="Arial, Helvetica" size="1">Beneficiário</font><br />
             <font face="Arial, Helvetica" size="-1">
               <%= @boleto.nome_cedente %>
               &nbsp;&nbsp;&nbsp;
@@ -136,7 +136,7 @@
             <br />
           </td>
           <td align="right" width="170">
-            <font face="Arial, Helvetica" size="1">Agência / Código Cedente</font><br />
+            <font face="Arial, Helvetica" size="1">Agência / Código Beneficiário</font><br />
             <font face="Arial, Helvetica" size="-1"><%= @boleto.agencia_codigo_cedente %></font><br />
           </td>
         </tr>
@@ -149,8 +149,8 @@
           <td width="170" align="right"><font face="Arial, Helvetica" size="1">Nosso Número</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.nosso_numero_formatado %></font></td>
         </tr>
         <tr>
-          <td><font face="Arial, Helvetica" size="1">Uso Banco</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
-          <td><font face="Arial, Helvetica" size="1">Carteira</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.carteira %></font></td>
+          <!--<td><font face="Arial, Helvetica" size="1">Uso Banco</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>-->
+          <td colspan='2'><font face="Arial, Helvetica" size="1">Carteira</font><br /><font face="Arial, Helvetica" size="-1"><%= @boleto.carteira_formatado %></font></td>
           <td><font face="Arial, Helvetica" size="1">Especie</font><br /><font face="Arial, Helvetica" size="-1">R$</font></td>
           <td><font face="Arial, Helvetica" size="1">Quantidade</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
           <td><font face="Arial, Helvetica" size="1">Valor</font><br /><font face="Arial, Helvetica" size="-1">&nbsp;</font></td>
@@ -158,7 +158,7 @@
         </tr>
         <tr>
           <th colspan="5" rowspan="5" valign='top'><p align="left">
-            <font face="Arial, Helvetica" size="1">Instruções (Texto de responsabilidade do cedente):</font><br />
+            <font face="Arial, Helvetica" size="1">Instruções de responsabilidade do beneficiário. Qualquer dúvida sobre este boleto, contate o beneficiário.</font><br />
             <font face="Arial, Helvetica" size="-1">
               <%= @boleto.instrucoes_1 -%><br />
               <%= @boleto.instrucoes_2 -%><br />
@@ -181,7 +181,7 @@
         </tr>
         <tr>
           <td colspan="6">
-            <font face="Arial, Helvetica" size="1">Sacado: </font>
+            <font face="Arial, Helvetica" size="1">Pagador: </font>
             <font face="Arial, Helvetica" size="-1">
               <%= @boleto.nome_sacado %> &nbsp;&nbsp; CNPJ/CPF <%= @boleto.cpf_cnpj_sacado %> <br />
             </font>
@@ -197,12 +197,13 @@
     <table width="640" cellspacing="0" cellpadding="0" border="0">
       <tbody>
         <tr>
-          <td colspan="5">
+          <td colspan="5" valign='top'>
             <br />
             <%= barcode_i25_with_images(@boleto.codigo_barras) %>
           </td>
-          <td align="right">
-            <font face="Arial, Helvetica" size="1" align="top">Ficha de Compensação / Autenticação Mecânica</font>
+          <td align="right" valign='top'>
+            <br />
+            <font face="Arial, Helvetica" size="1" align="top" style='width: 200px'>Autenticação Mecânica / Ficha de Compensação</font>
           </td>
         </tr>
       </tbody>

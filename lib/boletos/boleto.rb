@@ -67,6 +67,10 @@ module AcBoletos
       ['Pagável em qualquer banco até o vencimento']
     end
 
+    def carteira_formatado
+      carteira
+    end
+
     private
 
     def cnpj_formatado(val)
