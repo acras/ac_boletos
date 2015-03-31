@@ -6,6 +6,7 @@ require "#{File.dirname(__FILE__)}/boletos/boleto_caixa.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_real.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_itau.rb"
 require "#{File.dirname(__FILE__)}/boletos/boleto_santander.rb"
+require "#{File.dirname(__FILE__)}/boletos/boleto_banco_do_brasil.rb"
 require 'ac_boletos/version'
 
 ActionView::Base.send :include, BarcodeHelper
