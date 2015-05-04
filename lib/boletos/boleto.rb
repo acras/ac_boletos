@@ -50,7 +50,7 @@ module AcBoletos
     end
 
     def endereco_sacado_linha_1
-      r = logradouro_sacado + ', ' + numero_sacado
+      r = logradouro_sacado.to_s + ', ' + numero_sacado.to_s
       r = r + ' - ' + complemento_sacado if complemento_sacado
       r
     end
