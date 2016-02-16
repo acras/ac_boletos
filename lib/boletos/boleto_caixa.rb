@@ -7,6 +7,14 @@ module AcBoletos
 
   class BoletoCaixa < Boleto
 
+    def local_pagamento
+      ['Preferencialmente nas casas lotéricas até o valor limite.']
+    end
+
+    def numero_guia
+      numero_documento
+    end
+
     def linha_digitavel
       dv1 = dv2 = dv3 = '?'
       c = codigo_barras.to_s
@@ -32,12 +40,22 @@ module AcBoletos
       get_campo_livre #20-44 campo livre
     end
 
+    # ok
     def get_campo_livre
-      nosso_numero + sprintf("%015d", codigo_cedente)
+      str = codigo_cedente[0..5] + # codigo cedente mas digito verificador
+      calc_digito_verificador_cod_cedente.to_s + #
+      nosso_numero[2..4] + # 3a a 5a posição do Nosso Número
+      nosso_numero[0] + # 1a posição do Nosso Numero: Tipo de Cobrança (1-Registrada / 2-Sem Registro)
+      nosso_numero[5..7] + # 6a a 8a posição do Nosso Número
+      nosso_numero[1] + # 2a posição do Nosso Número: Identificador da Emissão do Boleto (4-Beneficiário)
+      nosso_numero[8..16]  # 9a a 17a posição do Nosso Número
+      str + calculo_digito_verificador(str, true).to_s
+
     end
 
+    # ok
     def get_codigo_cedente_formatted
-      codigo_cedente.to_s + '-' + calc_digito_verificador_cod_cedente.to_s
+      codigo_cedente + '-' + calc_digito_verificador_cod_cedente.to_s
     end
 
     def agencia_codigo_cedente
@@ -50,7 +68,7 @@ module AcBoletos
       elsif @carteira == '12'
         "9%09d" % numero
       elsif @carteira == '14'
-        "82%08d" % numero
+        "14%015d" % numero
       end
     end
 
@@ -62,7 +80,7 @@ module AcBoletos
       case @carteira
       when '11' then 'CS'
       when '12' then 'CR'
-      when '14' then 'SR'
+      when '14' then 'RG'
       when '41' then 'DE'
       else ""
       end
@@ -71,10 +89,10 @@ module AcBoletos
     def codigo_banco_formatado
       '104-0'
     end
-    
+
     def caminho_logo
       'logo_caixa.jpg'
-    end  
+    end
 
     private
 
@@ -96,7 +114,7 @@ module AcBoletos
     end
 
     def calc_digito_verificador_cod_cedente
-      calculo_digito_verificador(codigo_cedente.to_s)
+      calculo_digito_verificador(codigo_cedente.to_s, true)
     end
 
     def calc_digito_verificador_campo_livre(campo_livre)
