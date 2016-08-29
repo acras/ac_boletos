@@ -66,7 +66,7 @@ module AcBoletos
 
     def carteira_formatado
       case carteira.to_s
-      when '101' then 'COBRANCA SIMPLES - ECR'
+      when '101' then 'COBRANCA SIMPLES - RCR'
       when '102' then 'COBRANCA SIMPLES - CSR'
       else carteira
       end
