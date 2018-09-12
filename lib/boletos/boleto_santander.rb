@@ -49,7 +49,7 @@ module AcBoletos
     end
 
     def nosso_numero
-      ("%012d" % numero) + calculo_digito_verificador(numero.to_i, true).to_s
+      ("%07d" % numero) + calculo_digito_verificador(numero.to_i, true).to_s
     end
 
     def nosso_numero_formatado
