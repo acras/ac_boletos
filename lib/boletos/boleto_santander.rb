@@ -39,7 +39,8 @@ module AcBoletos
       valor_documento_formatado + #10-19 valor do documento
       "9" + # 9 fixo
       codigo_cedente + # 21 - 27 código cedente
-      nosso_numero + # 28 - 40 nosso numero
+      "00000" + # 28 - 32 fixo
+      nosso_numero + # 33 - 40 nosso numero
       '0' + # 41 - 41 0 fixo
       carteira # 42 - 44 carteira
     end
